@@ -159,6 +159,8 @@ export default function HomePage() {
               <ul className="space-y-2 text-sm text-stone-600 dark:text-gray-400">
                 <li><Link href="/" className="hover:text-emerald-600 transition-colors">Home</Link></li>
                 <li><Link href="/store" className="hover:text-emerald-600 transition-colors">Store</Link></li>
+                <li><Link href="/about" className="hover:text-emerald-600 transition-colors">About</Link></li>
+                <li><Link href="/contact" className="hover:text-emerald-600 transition-colors">Contact</Link></li>
               </ul>
             </div>
             <div>
@@ -179,5 +181,6 @@ export default function HomePage() {
     </div>
   );
 }
+
 
 
