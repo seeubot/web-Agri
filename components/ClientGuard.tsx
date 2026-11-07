@@ -1,14 +1,29 @@
 ﻿"use client";
 import { useEffect } from "react";
-const WARN = "⛔ Unauthorized action\n\nThis content is protected. Developer tools, right-click, and inspection are disabled for security.";
+import { useDialog } from "./ConfirmDialog";
+const TITLE = "Unauthorized action";
+const MESSAGE =
+  "This content is protected.\n\nDeveloper tools, right-click, and inspection are disabled for security.";
 export default function ClientGuard() {
+  const showDialog = useDialog();
   useEffect(() => {
-    // 1. Right-click
-    const blockContext = (e: MouseEvent) => {
+    let lastShown = 0;
+    const cooldownMs = 1200;
+    const fire = (e: Event) => {
       e.preventDefault();
-      alert(WARN);
+      e.stopPropagation();
+      const now = Date.now();
+      if (now - lastShown < cooldownMs) return;
+      lastShown = now;
+      showDialog({
+        title: TITLE,
+        message: MESSAGE,
+        confirmText: "Understood",
+        showCancel: false,
+        variant: "warning",
+      });
     };
-    // 2. Keyboard shortcuts (F12, Ctrl+Shift+I/J/C, Ctrl+U view-source, Ctrl+S save)
+    const blockContext = (e: MouseEvent) => fire(e);
     const blockKeys = (e: KeyboardEvent) => {
       const k = e.key.toLowerCase();
       const meta = e.ctrlKey || e.metaKey;
@@ -16,22 +31,14 @@ export default function ClientGuard() {
         e.key === "F12" ||
         (meta && e.shiftKey && (k === "i" || k === "j" || k === "c")) ||
         (meta && (k === "u" || k === "s"));
-      if (blocked) {
-        e.preventDefault();
-        e.stopPropagation();
-        alert(WARN);
-        return false;
-      }
+      if (blocked) fire(e);
     };
-    // 3. Copy / cut / select-drag protection (light)
     const blockCopy = (e: ClipboardEvent) => {
-      // Allow copying inside inputs/textareas
       const t = e.target as HTMLElement | null;
       const tag = t?.tagName?.toLowerCase();
       if (tag === "input" || tag === "textarea" || t?.isContentEditable) return;
       e.preventDefault();
     };
-    // 4. Drag image save
     const blockDrag = (e: DragEvent) => {
       const t = e.target as HTMLElement | null;
       if (t?.tagName?.toLowerCase() === "img") e.preventDefault();
@@ -48,6 +55,6 @@ export default function ClientGuard() {
       document.removeEventListener("cut", blockCopy);
       document.removeEventListener("dragstart", blockDrag);
     };
-  }, []);
+  }, [showDialog]);
   return null;
 }
