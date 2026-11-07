@@ -1,8 +1,7 @@
-"use client"
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes/dist/types"
-// React 19 warns about the inline <script> that next-themes uses to prevent flicker.
+﻿"use client";
+import * as React from "react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+type ThemeProviderProps = React.ComponentProps<typeof NextThemesProvider>;
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   const originalError = console.error;
   console.error = (...args: any[]) => {
@@ -13,5 +12,5 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   };
 }
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
