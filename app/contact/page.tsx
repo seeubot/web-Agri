@@ -1,6 +1,26 @@
 ﻿"use client";
 import { useState } from "react";
-import { Mail, MapPin, MessageSquare, Send, CheckCircle2, Instagram } from "lucide-react";
+import { Mail, MapPin, MessageSquare, Send, CheckCircle2 } from "lucide-react";
+
+// Instagram brand icon (Lucide removed brand icons in v0.400+)
+function InstagramIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
 
 const inputClass =
   "w-full px-4 py-3 rounded-xl border border-stone-200 dark:border-gray-700 bg-white dark:bg-gray-950 text-stone-900 dark:text-gray-100 placeholder:text-stone-400 dark:placeholder:text-gray-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition";
@@ -133,7 +153,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="block rounded-2xl border border-stone-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 hover:border-emerald-300 dark:hover:border-emerald-800 transition-colors"
             >
-              <Instagram className="w-6 h-6 text-emerald-600 mb-3" />
+              <InstagramIcon className="w-6 h-6 text-emerald-600 mb-3" />
               <h3 className="font-bold mb-1 text-stone-900 dark:text-gray-100">Instagram</h3>
               <p className="text-sm text-stone-600 dark:text-gray-400">@agri_agentt</p>
               <p className="text-xs text-stone-500 dark:text-gray-500 mt-1">Follow for updates</p>
