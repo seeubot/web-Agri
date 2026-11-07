@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 import { useState } from "react"
 import { ImageIcon } from "lucide-react"
 export default function ProductImage({ id, url, title }: { id?: string, url?: string, title: string }) {

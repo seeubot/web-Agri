@@ -27,3 +27,80 @@
     @apply rounded-2xl border border-stone-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden transition-all hover:shadow-lg;
   }
 }
+/* ═══════════════════════════════════════════════════════════════
+   Dark mode POLISH — fine-tune colors that feel "off"
+   ═══════════════════════════════════════════════════════════════ */
+@layer utilities {
+  /* Brand green — slightly brighter in dark so it doesn't disappear */
+  html.dark .bg-brand-600                       { background-color: #22c55e !important; }
+  html.dark .bg-brand-700                       { background-color: #16a34a !important; }
+  html.dark .text-brand-600                     { color: #4ade80 !important; }
+  html.dark .text-brand-700                     { color: #22c55e !important; }
+  html.dark .text-brand-800                     { color: #4ade80 !important; }
+  html.dark .text-brand-900                     { color: #86efac !important; }
+  html.dark .border-brand-200                   { border-color: rgba(34, 197, 94, 0.3) !important; }
+  html.dark .bg-brand-50                        { background-color: rgba(34, 197, 94, 0.1) !important; }
+  html.dark .bg-brand-100                       { background-color: rgba(34, 197, 94, 0.15) !important; }
+  /* Emerald brand too (used in hero) */
+  html.dark .bg-emerald-600                     { background-color: #10b981 !important; }
+  html.dark .text-emerald-600                   { color: #34d399 !important; }
+  html.dark .text-emerald-700                   { color: #10b981 !important; }
+  /* Card shadows — lighter shadows in dark mode look wrong; darken them */
+  html.dark .shadow,
+  html.dark .shadow-md,
+  html.dark .shadow-lg,
+  html.dark .shadow-xl,
+  html.dark .shadow-2xl {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+  }
+  /* Hover states — prevent white hover flash */
+  html.dark .hover\:bg-white:hover              { background-color: #1e293b !important; }
+  html.dark .hover\:bg-gray-50:hover            { background-color: #1e293b !important; }
+  html.dark .hover\:bg-gray-100:hover           { background-color: #1e293b !important; }
+  html.dark .hover\:bg-stone-50:hover           { background-color: #1e293b !important; }
+  html.dark .hover\:bg-stone-100:hover          { background-color: #1e293b !important; }
+  /* Slightly brighter muted text — Tailwind's dark gray-400 is often too dim */
+  html.dark .text-gray-400                      { color: #a0aec0 !important; }
+  html.dark .text-stone-400                     { color: #a0aec0 !important; }
+  /* Input fields in dark mode */
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #1e293b !important;
+  }
+  html.dark input::placeholder,
+  html.dark textarea::placeholder {
+    color: #64748b !important;
+  }
+  /* NavBar in dark mode */
+  html.dark .backdrop-blur-md                   { background-color: rgba(3, 7, 18, 0.85) !important; }
+}
+/* Smooth transition between themes — prevents jarring flash */
+html, body, header, footer, section, main, article, aside, nav, div {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+/* But NOT on hover — that would feel laggy */
+*:where(a, button, a:hover, button:hover) {
+  transition-property: background-color, border-color, color, transform, box-shadow, opacity;
+}
+/* Reduced motion users get no transition */
+@media (prefers-reduced-motion: reduce) {
+  html, body, header, footer, section, main, article, aside, nav, div,
+  *:where(a, button) {
+    transition: none !important;
+  }
+}
+/* Hero text — brighten in dark mode */
+html.dark h1, html.dark h2 {
+  color: #f8fafc;
+}
+html.dark .text-white\/85 {
+  color: rgba(241, 245, 249, 0.9) !important;
+}
+html.dark .text-white\/80 {
+  color: rgba(241, 245, 249, 0.85) !important;
+}
