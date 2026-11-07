@@ -1,30 +1,35 @@
 ﻿import type { AffiliateItem } from "@/lib/types";
 import { platformLabel, platformColor } from "@/lib/utils";
 import ProductImage from "./ProductImage";
+import { ExternalLink } from "lucide-react";
+
 export default function StoreCard({ item }: { item: AffiliateItem }) {
+  const buyUrl = item.productUrl?.trim();
+  const hasBuy = Boolean(buyUrl) && /^https?:\/\//i.test(buyUrl ?? "");
+
   return (
-    <div className="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 hover:border-brand-200 dark:hover:border-brand-800">
+    <div className="group rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1 hover:border-brand-200 dark:hover:border-brand-800 flex flex-col">
       <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
         <ProductImage url={item.imageUrl} title={item.title} />
+
         {item.commissionRate && item.commissionRate > 0 ? (
           <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 px-2 py-1 rounded-md bg-brand-700 text-white text-[11px] font-bold shadow-lg">
             ▲ {item.commissionRate}%
           </span>
         ) : null}
-        <span
-          className={`absolute bottom-2.5 left-2.5 px-2 py-1 rounded-md text-white text-[10px] font-bold tracking-wide shadow ${platformColor(
-            item.platform
-          )}`}
-        >
+
+        <span className={`absolute bottom-2.5 left-2.5 px-2 py-1 rounded-md text-white text-[10px] font-bold tracking-wide shadow ${platformColor(item.platform)}`}>
           {platformLabel(item.platform).toUpperCase()}
         </span>
+
         {item.isActive === false && (
           <span className="absolute top-2.5 left-2.5 px-2 py-1 rounded-md bg-red-700 text-white text-[10px] font-bold shadow">
             INACTIVE
           </span>
         )}
       </div>
-      <div className="p-4 flex flex-col gap-1.5">
+
+      <div className="p-4 flex flex-col gap-2 flex-1">
         <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-gray-900 dark:text-gray-100">
           {item.title}
         </h3>
@@ -34,8 +39,25 @@ export default function StoreCard({ item }: { item: AffiliateItem }) {
           </p>
         )}
         {item.category && (
-          <span className="inline-block mt-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 w-fit">
+          <span className="inline-block text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 w-fit">
             {item.category}
+          </span>
+        )}
+
+        {hasBuy ? (
+          <a
+            href={buyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-auto inline-flex items-center justify-center gap-1.5 w-full px-3 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold transition-colors"
+            aria-label={`Buy ${item.title} on ${platformLabel(item.platform)}`}
+          >
+            Buy on {platformLabel(item.platform)}
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        ) : (
+          <span className="mt-auto inline-flex items-center justify-center w-full px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-sm font-medium">
+            Link coming soon
           </span>
         )}
       </div>
