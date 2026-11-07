@@ -1,9 +1,12 @@
 ﻿"use client";
 import { useState } from "react";
-import { Mail, MapPin, MessageSquare, Send, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, MessageSquare, Send, CheckCircle2, Instagram } from "lucide-react";
 
 const inputClass =
   "w-full px-4 py-3 rounded-xl border border-stone-200 dark:border-gray-700 bg-white dark:bg-gray-950 text-stone-900 dark:text-gray-100 placeholder:text-stone-400 dark:placeholder:text-gray-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none transition";
+
+const EMAIL = "siddhikreddy440@gmail.com";
+const INSTAGRAM_URL = "https://www.instagram.com/agri_agentt";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -18,7 +21,7 @@ export default function ContactPage() {
     e.preventDefault();
     const subject = encodeURIComponent(`[AgriAgent] ${form.subject || "Message"}`);
     const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
-    window.location.href = `mailto:hello@agriagent.app?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
     setSubmitted(true);
   }
 
@@ -55,8 +58,8 @@ export default function ContactPage() {
                   <p className="text-stone-600 dark:text-gray-400 text-sm mb-6">
                     Your email app should open with the message pre-filled. If it did not, write to us directly:
                   </p>
-                  <a href="mailto:hello@agriagent.app" className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">
-                    hello@agriagent.app
+                  <a href={`mailto:${EMAIL}`} className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline">
+                    {EMAIL}
                   </a>
                   <div className="mt-8">
                     <button
@@ -110,10 +113,10 @@ export default function ContactPage() {
           </div>
 
           <aside className="md:col-span-2 space-y-4">
-            <a href="mailto:hello@agriagent.app" className="block rounded-2xl border border-stone-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 hover:border-emerald-300 dark:hover:border-emerald-800 transition-colors">
+            <a href={`mailto:${EMAIL}`} className="block rounded-2xl border border-stone-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 hover:border-emerald-300 dark:hover:border-emerald-800 transition-colors">
               <Mail className="w-6 h-6 text-emerald-600 mb-3" />
               <h3 className="font-bold mb-1 text-stone-900 dark:text-gray-100">Email</h3>
-              <p className="text-sm text-stone-600 dark:text-gray-400">hello@agriagent.app</p>
+              <p className="text-sm text-stone-600 dark:text-gray-400 break-all">{EMAIL}</p>
               <p className="text-xs text-stone-500 dark:text-gray-500 mt-1">Best for detailed questions</p>
             </a>
 
@@ -124,17 +127,17 @@ export default function ContactPage() {
               <p className="text-xs text-stone-500 dark:text-gray-500 mt-1">Working across AP & Telangana</p>
             </div>
 
-            <div className="rounded-2xl border border-stone-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6">
-              <h3 className="font-bold mb-3 text-stone-900 dark:text-gray-100">Also on</h3>
-              <div className="space-y-2 text-sm">
-                <a href="https://x.com/agriagent" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-stone-600 dark:text-gray-400 hover:text-emerald-600 transition-colors">
-                  X (Twitter) — @agriagent
-                </a>
-                <a href="https://github.com/agriagent" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-stone-600 dark:text-gray-400 hover:text-emerald-600 transition-colors">
-                  GitHub — @agriagent
-                </a>
-              </div>
-            </div>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl border border-stone-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6 hover:border-emerald-300 dark:hover:border-emerald-800 transition-colors"
+            >
+              <Instagram className="w-6 h-6 text-emerald-600 mb-3" />
+              <h3 className="font-bold mb-1 text-stone-900 dark:text-gray-100">Instagram</h3>
+              <p className="text-sm text-stone-600 dark:text-gray-400">@agri_agentt</p>
+              <p className="text-xs text-stone-500 dark:text-gray-500 mt-1">Follow for updates</p>
+            </a>
           </aside>
         </div>
       </section>
