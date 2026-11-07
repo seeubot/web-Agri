@@ -1,7 +1,7 @@
 ﻿import Link from "next/link";
 import { ArrowRight, Leaf, Store, Users, CloudSun, Shield, Sprout } from "lucide-react";
-import HeroVideo from "@/components/HeroVideo";
 import PlayStoreButton from "@/components/PlayStoreButton";
+import AmbientVideo from "@/components/AmbientVideo";
 import FeatureShowcase from "@/components/FeatureShowcase";
 
 export default function HomePage() {
@@ -9,14 +9,27 @@ export default function HomePage() {
     <div className="bg-[#FDFBF6] dark:bg-gray-950">
 
       {/* ───── Hero ───── */}
-      <HeroVideo heightClass="min-h-[88vh]" overlay={55}>
-        <div className="max-w-5xl mx-auto px-6 h-full flex flex-col justify-center py-24">
+            {/* ───── Hero (static, fast) ───── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-stone-900 via-emerald-950 to-stone-900 dark:from-gray-950 dark:via-emerald-950 dark:to-gray-950">
+        {/* Layered mesh gradients — pure CSS, zero cost */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-0 left-1/4 w-[40rem] h-[40rem] rounded-full bg-emerald-600/30 blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-[36rem] h-[36rem] rounded-full bg-amber-500/20 blur-3xl" />
+        </div>
+        {/* Grain texture */}
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+        <div className="relative max-w-5xl mx-auto px-6 h-full min-h-[88vh] flex flex-col justify-center py-24">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-medium mb-8">
               <Leaf className="w-3.5 h-3.5 text-emerald-300" />
               For Indian farmers
             </div>
-
             <h1 className="text-[2.75rem] sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.03]">
               Grow more.
               <br />
@@ -24,12 +37,10 @@ export default function HomePage() {
                 Stress less.
               </span>
             </h1>
-
             <p className="mt-7 text-lg sm:text-xl text-white/85 max-w-xl leading-relaxed">
               A marketplace of trusted products, verified labourers near you,
               and live weather — everything a farmer needs, in one place.
             </p>
-
             <div className="mt-10 flex gap-3 flex-wrap items-center">
               <Link
                 href="/store"
@@ -42,7 +53,9 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </HeroVideo>
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FDFBF6] dark:from-gray-950 to-transparent" />
+      </section>
 
       {/* ───── Honest value strip ───── */}
       <section className="border-b border-stone-200 dark:border-gray-800 bg-white dark:bg-gray-950">
@@ -166,3 +179,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+
