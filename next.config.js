@@ -3,6 +3,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "honest-mercedes-school1660440-a2fe48e2.koyeb.app" },
+      { protocol: "https", hostname: "i.postimg.cc" },
+      { protocol: "https", hostname: "postimg.cc" },
     ],
     unoptimized: true,
   },
@@ -11,8 +13,9 @@ const nextConfig = {
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob: https://honest-mercedes-school1660440-a2fe48e2.koyeb.app",
-      "media-src 'self' blob:",
+      // Allow images from any HTTPS source. Safe: images can't run JS.
+      "img-src 'self' data: blob: https: http:",
+      "media-src 'self' blob: https:",
       "font-src 'self' data:",
       "connect-src 'self'",
       "frame-ancestors 'none'",
